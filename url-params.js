@@ -10,22 +10,12 @@ function getParameters() {
   const searchParams = new URLSearchParams(window.location.search)
 
   searchParams.forEach((value, param) => {
-    if (param.startsWith("utm_") || param.startsWith("_")) {
+    if (param.startsWith("_") || param.startsWith("utm_") || ["ref", "source"].includes(param)) {
       params[param] = value
     }
   })
 
   return params
-}
-
-// Function to append parameters to a given URL
-function appendParameters(url, params) {
-  const urlObject = new URL(url)
-  for (const [param, value] of Object.entries(params)) {
-    urlObject.searchParams.set(param, value)
-  }
-
-  return urlObject.toString()
 }
 
 // Function to update all links on the page with parameters
@@ -36,4 +26,14 @@ function updateAllLinksWithParameters(params) {
       link.href = appendParameters(link.href, params)
     }
   }
+}
+
+// Function to append parameters to a given URL
+function appendParameters(url, params) {
+  const urlObject = new URL(url)
+  for (const [param, value] of Object.entries(params)) {
+    urlObject.searchParams.set(param, value)
+  }
+
+  return urlObject.toString()
 }
