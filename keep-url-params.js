@@ -25,6 +25,11 @@ function getURLParameters() {
       params[param] = value
     }
   })
+  params.forEach((value, param) => {
+    if (param.startsWith("_utm") || param.startsWith("_ref") || param.startsWith("_source")) {
+      params[param.slice(1)] = value
+    }
+  })
   return params
 }
 
