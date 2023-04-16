@@ -1,4 +1,5 @@
 const storageName = "params"
+const storageDuration = 30 // days
 const storedParams = getStoredParameters()
 const urlParams = getURLParameters()
 const params = { ...storedParams, ...urlParams }
@@ -21,12 +22,12 @@ function getURLParameters() {
   const params = {}
   const searchParams = new URLSearchParams(window.location.search)
   searchParams.forEach((value, param) => {
-    if (param.startsWith("_") || param.startsWith("utm_") || ["ref", "source"].includes(param)) {
+    if (param.startsWith("_") || param.startsWith("utm_") || ["ref", "source", "prefilled_promo_code"].includes(param)) {
       params[param] = value
     }
   })
   Object.keys(params).forEach((param) => {
-    if (param.startsWith("_utm_") || param.startsWith("_ref") || param.startsWith("_source")) {
+    if (param.startsWith("_utm_")) {
       params[param.slice(1)] = params[param]
     }
   })
@@ -35,7 +36,7 @@ function getURLParameters() {
 
 function storeParameters(params) {
   const expiration = new Date()
-  expiration.setDate(expiration.getDate() + 30)
+  expiration.setDate(expiration.getDate() + storageDuration)
   document.cookie = `${storageName}=${JSON.stringify(params)}; expires=${expiration.toUTCString()}; path=/`
 }
 
