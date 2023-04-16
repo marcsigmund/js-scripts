@@ -12,19 +12,28 @@ jobs:
 
     steps:
       - name: Purge remove-branding-framer
-        uses: distributhor/workflow-webhook@v2
-        env:
-          webhook_url: "https://purge.jsdelivr.net/gh/marcsigmund/js-scripts/remove-branding-framer.js"
-          webhook_secret: ""
+        id: purgeRemoveBrandingFramer
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: "https://purge.jsdelivr.net/gh/marcsigmund/js-scripts/remove-branding-framer.js"
+          method: "GET"
 
       - name: Purge plausible-ignore
-        uses: distributhor/workflow-webhook@v2
-        env:
-          webhook_url: "https://purge.jsdelivr.net/gh/marcsigmund/js-scripts/plausible-ignore.js"
-          webhook_secret: ""
+        id: purgePlausibleIgnore
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: "https://purge.jsdelivr.net/gh/marcsigmund/js-scripts/plausible-ignore.js"
+          method: "GET"
 
       - name: Purge keep-url-params
-        uses: distributhor/workflow-webhook@v2
-        env:
-          webhook_url: "https://purge.jsdelivr.net/gh/marcsigmund/js-scripts/keep-url-params.js"
-          webhook_secret: ""
+        id: purgeKeepUrlParams
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: "https://purge.jsdelivr.net/gh/marcsigmund/js-scripts/keep-url-params.js"
+          method: "GET"
+
+      - name: Show Response
+        run: |
+          echo ${{ steps.purgeRemoveBrandingFramer.outputs.response }}
+          echo ${{ steps.purgePlausibleIgnore.outputs.response }}
+          echo ${{ steps.purgeKeepUrlParams.outputs.response }}
