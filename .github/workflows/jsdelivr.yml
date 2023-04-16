@@ -12,6 +12,7 @@ jobs:
 
     steps:
       - name: Purge remove-branding-framer
+<<<<<<< HEAD
         id: purgeRemoveBrandingFramer
         uses: fjogeleit/http-request-action@v1
         with:
@@ -37,3 +38,21 @@ jobs:
           echo ${{ steps.purgeRemoveBrandingFramer.outputs.response }}
           echo ${{ steps.purgePlausibleIgnore.outputs.response }}
           echo ${{ steps.purgeKeepUrlParams.outputs.response }}
+=======
+        uses: distributhor/workflow-webhook@v2
+        env:
+          webhook_url: "https://purge.jsdelivr.net/gh/marcsigmund/js-scripts/remove-branding-framer.js"
+          webhook_secret: "-"
+
+      - name: Purge plausible-ignore
+        uses: distributhor/workflow-webhook@v2
+        env:
+          webhook_url: "https://purge.jsdelivr.net/gh/marcsigmund/js-scripts/plausible-ignore.js"
+          webhook_secret: "-"
+
+      - name: Purge keep-url-params
+        uses: distributhor/workflow-webhook@v2
+        env:
+          webhook_url: "https://purge.jsdelivr.net/gh/marcsigmund/js-scripts/keep-url-params.js"
+          webhook_secret: "-"
+>>>>>>> 39263b99bfe43c4861504dc959aeeefe279bc9db
