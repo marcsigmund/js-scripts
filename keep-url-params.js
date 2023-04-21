@@ -2,7 +2,8 @@ const storageName = "params"
 const storageDuration = 30 // days
 const storedParams = getStoredParameters()
 const urlParams = getURLParameters()
-const params = { ...storedParams, ...urlParams }
+const defaultPromoCode = getPromoCodeFromElement("promo_code")
+const params = { prefilled_promo_code: defaultPromoCode, ...storedParams, ...urlParams }
 if (Object.keys(params).length > 0) {
   storeParameters(params)
   updateAllLinksWithParameters(params)
@@ -32,6 +33,12 @@ function getURLParameters() {
     }
   })
   return params
+}
+
+function getPromoCodeFromElement(elementId) {
+  const element = document.getElementById(elementId)
+  const pElement = element?.querySelector("p")
+  return pElement ? pElement?.innerText : ""
 }
 
 function storeParameters(params) {
