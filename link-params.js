@@ -1,3 +1,4 @@
+const onlyExternalLinks = true
 const storageName = "params"
 const storageDuration = 30 // days
 const storedParams = getStoredParameters()
@@ -58,6 +59,9 @@ function updateAllLinksWithParameters(params) {
 
 function appendParameters(url, params) {
   const urlObject = new URL(url)
+  if (onlyExternalLinks && urlObject.hostname === window.location.hostname) {
+    return urlObject.toString()
+  }
   for (const [param, value] of Object.entries(params)) {
     if (!urlObject.searchParams.has(param)) {
       urlObject.searchParams.set(param, value)
