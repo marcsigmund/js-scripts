@@ -59,7 +59,9 @@ function updateAllLinksWithParameters(params) {
 function appendParameters(url, params) {
   const urlObject = new URL(url)
   for (const [param, value] of Object.entries(params)) {
-    urlObject.searchParams.set(param, value)
+    if (!urlObject.searchParams.has(param)) {
+      urlObject.searchParams.set(param, value)
+    }
   }
   return urlObject.toString()
 }
