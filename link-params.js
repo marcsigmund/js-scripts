@@ -1,10 +1,14 @@
 const onlyExternalLinks = true
 const storageName = "params"
 const storageDuration = 30 // days
+const defaultPromoCode = getPromoCodeFromElement("promo_code")
 const storedParams = getStoredParameters()
 const urlParams = getURLParameters()
-const defaultPromoCode = getPromoCodeFromElement("promo_code")
-const params = { prefilled_promo_code: defaultPromoCode, ...storedParams, ...urlParams }
+const params = {}
+if (defaultPromoCode) {
+  params.prefilled_promo_code = defaultPromoCode
+}
+Object.assign(params, storedParams, urlParams)
 if (Object.keys(params).length > 0) {
   storeParameters(params)
   updateAllLinksWithParameters(params)
