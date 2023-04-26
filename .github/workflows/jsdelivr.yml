@@ -18,11 +18,11 @@ jobs:
           url: "https://purge.jsdelivr.net/gh/marcsigmund/js-scripts@latest/remove-branding-framer.js"
           method: "GET"
 
-      - name: Purge plausible-ignore
-        id: purgePlausibleIgnore
+      - name: Purge analytics-ignore
+        id: purgeAnalyticsIgnore
         uses: fjogeleit/http-request-action@v1
         with:
-          url: "https://purge.jsdelivr.net/gh/marcsigmund/js-scripts@latest/plausible-ignore.js"
+          url: "https://purge.jsdelivr.net/gh/marcsigmund/js-scripts@latest/analytics-ignore.js"
           method: "GET"
 
       - name: Purge link-params
@@ -35,5 +35,5 @@ jobs:
       - name: Show Response
         run: |
           echo ${{ steps.purgeRemoveBrandingFramer.outputs.response }}
-          echo ${{ steps.purgePlausibleIgnore.outputs.response }}
+          echo ${{ steps.purgeAnalyticsIgnore.outputs.response }}
           echo ${{ steps.purgeLinkParams.outputs.response }}
